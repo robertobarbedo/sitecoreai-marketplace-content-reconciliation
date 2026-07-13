@@ -495,7 +495,7 @@ export function ApplyView() {
       {confirming && target && (
         <ConfirmDialog
           title="Apply reconciliation"
-          message={`This writes ${willUpdate.length} field value(s) to real content items in ${environmentLabel(target)}. Continue?`}
+          message={`This writes ${willUpdate.length} field value(s) in ${environmentLabel(target)}. Continue?`}
           confirmLabel={`Apply to ${environmentLabel(target)}`}
           danger
           onConfirm={() => {

@@ -146,7 +146,8 @@ export function FieldPanel({
 
   if (!trackedItem) {
     return (
-      <div>
+      /* The card provides no top padding (see page.tsx) — add it here. */
+      <div style={{ paddingTop: "var(--spacing-6)" }}>
         <h4 style={{ marginBottom: "var(--spacing-2)" }}>{selection.name}</h4>
         <PathPill path={selection.path} />
         <p
@@ -255,56 +256,81 @@ export function FieldPanel({
 
   return (
     <div>
+      {/* Sticky header: the card has no top padding, so this sticks flush to
+          its top edge; negative side margins stretch it over the card's
+          horizontal padding so field rows scrolling beneath are covered. */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto 1fr",
-          alignItems: "center",
-          gap: "var(--spacing-4)",
-          marginBottom: "var(--spacing-4)",
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          background: "var(--color-background)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--spacing-3)",
+          margin: "0 calc(-1 * var(--spacing-8)) var(--spacing-4)",
+          padding: "var(--spacing-6) var(--spacing-8) var(--spacing-3)",
+          borderBottom: "1px solid var(--color-border)",
         }}
       >
-        <div style={{ minWidth: 0 }}>
-          <h4 style={{ marginBottom: "var(--spacing-2)" }}>{selection.name}</h4>
+        {/* Row 1 — plain path text left, language pill right */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "var(--spacing-2)",
+            minWidth: 0,
+          }}
+        >
+          <h4
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              minWidth: 0,
+            }}
+            title={selection.path}
+          >
+            {selection.path}
+          </h4>
+          <LanguagePill language={language} />
+        </div>
+
+        {/* Row 2 — field tabs left, actions right */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "var(--spacing-4)",
+          }}
+        >
+          <div className="segmented">
+            {(
+              [
+                ["content", `Content Fields (${contentFields.length})`],
+                ["system", `System Fields (${systemFields.length})`],
+              ] as const
+            ).map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                className={tab === key ? "active" : undefined}
+                onClick={() => setTab(key)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
           <div
             style={{
               display: "flex",
               alignItems: "center",
               gap: "var(--spacing-2)",
-              minWidth: 0,
             }}
           >
-            <PathPill path={selection.path} />
-            <LanguagePill language={language} />
-          </div>
-        </div>
-
-        <div className="segmented" style={{ justifySelf: "center" }}>
-          {(
-            [
-              ["content", `Content Fields (${contentFields.length})`],
-              ["system", `System Fields (${systemFields.length})`],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              type="button"
-              className={tab === key ? "active" : undefined}
-              onClick={() => setTab(key)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        <div
-          style={{
-            justifySelf: "end",
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--spacing-2)",
-          }}
-        >
           {saving && <Spinner label="Saving…" />}
           <Button
             style={{
@@ -339,6 +365,7 @@ export function FieldPanel({
             <Icon path={mdiContentSave} size={0.65} />
             Save
           </Button>
+          </div>
         </div>
       </div>
 

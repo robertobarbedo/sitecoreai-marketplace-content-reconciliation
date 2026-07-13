@@ -2,6 +2,8 @@
 
 import type { CSSProperties, ReactNode } from "react";
 
+import { Icon, mdiClose } from "./Icon";
+
 type ButtonVariant = "primary" | "secondary" | "danger" | "dark";
 
 const buttonStyles: Record<ButtonVariant, CSSProperties> = {
@@ -54,9 +56,9 @@ export function Button({
         alignItems: "center",
         gap: "var(--spacing-1-5)",
         padding: "var(--spacing-2) var(--spacing-4)",
-        borderRadius: "var(--radius-lg)",
+        borderRadius: "var(--radius-xl)", /* console buttons are rounded-xl */
         fontSize: "var(--font-size-sm)",
-        fontWeight: "var(--font-weight-semibold)" as CSSProperties["fontWeight"],
+        fontWeight: "var(--font-weight-bold)" as CSSProperties["fontWeight"],
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.5 : 1,
         ...style,
@@ -104,14 +106,34 @@ export function Modal({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h4
+        <div
           style={{
-            fontSize: "var(--font-size-lg)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "var(--spacing-4)",
             marginBottom: "var(--spacing-4)",
           }}
         >
-          {title}
-        </h4>
+          <h4
+            style={{
+              fontSize: "var(--font-size-xl)", /* console dialog titles: 18px bold */
+            }}
+          >
+            {title}
+          </h4>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              title="Close"
+              aria-label="Close"
+              className="icon-button"
+            >
+              <Icon path={mdiClose} size={0.8} />
+            </button>
+          )}
+        </div>
         {children}
       </div>
     </div>

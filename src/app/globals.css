@@ -1,19 +1,21 @@
 :root {
-  /* Font Families */
-  --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  
+  /* Font Families (see C:\Marketplace\STYLE-GUIDE.md — Inter + JetBrains
+     Mono, loaded via Google Fonts in layout.tsx) */
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
   /* Font Weights */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   
   /* Font Sizes */
   --font-size-3xs: 0.625rem;   /* 10px */
   --font-size-2xs: 0.6875rem;  /* 11px */
   --font-size-xs: 0.75rem;     /* 12px */
-  --font-size-sm: 0.8125rem;   /* 13px */
+  --font-size-sm: 0.875rem;    /* 14px — console standard text (text-sm) */
   --font-size-base: 0.875rem;  /* 14px */
   --font-size-md: 0.875rem;    /* 14px */
   --font-size-lg: 1rem;        /* 16px */
@@ -59,39 +61,40 @@
   --radius-3xl: 1.5rem;     /* 24px */
   --radius-full: 624.938rem; /* 9999px */
   
-  /* Semantic Colors (purple design language, see design screenshot) */
-  --color-page: hsl(220, 20%, 97%);
-  --color-background: hsl(0, 0%, 100%);
-  --color-foreground: hsl(222, 18%, 10%);
-  --color-muted: hsl(220, 14%, 95%);
-  --color-muted-foreground: hsl(220, 9%, 46%);
-  --color-border: hsl(220, 13%, 91%);
-  --color-border-a11y: hsl(217.2, 32.6%, 17.5%);
-  --color-primary: hsl(258, 90%, 56%);
-  --color-primary-foreground: hsl(0, 0%, 100%);
-  --color-primary-hover: hsl(258, 84%, 48%);
-  --color-primary-active: hsl(258, 84%, 44%);
-  --color-primary-soft: hsl(258, 90%, 96%);
-  --color-primary-soft-foreground: hsl(258, 80%, 48%);
-  --color-secondary: hsl(0, 0%, 100%);
-  --color-secondary-foreground: hsl(222, 18%, 10%);
-  --color-accent: hsl(220, 14%, 94%);
-  --color-accent-foreground: hsl(222, 18%, 10%);
+  /* Semantic Colors — Blok light theme as used by the
+     content-transfer-api-console (see C:\Marketplace\STYLE-GUIDE.md) */
+  --color-page: #f9f9fb;                      /* surface */
+  --color-background: #ffffff;
+  --color-foreground: #1a1c1d;                /* on-surface */
+  --color-muted: #f7f7f7;                     /* muted / subtle fills */
+  --color-muted-foreground: #64748b;          /* text-subtle */
+  --color-border: #e2e8f0;                    /* border-muted */
+  --color-border-a11y: rgba(0, 0, 0, 0.42);
+  --color-primary: #6e3fff;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #5319e0;
+  --color-primary-active: #4715af;
+  --color-primary-soft: #eae7ff;              /* primary-background */
+  --color-primary-soft-foreground: #5319e0;   /* primary-foreground */
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #1a1c1d;
+  --color-accent: #edeef0;                    /* surface-container (hover) */
+  --color-accent-foreground: #1a1c1d;
   --color-dark: hsl(222, 18%, 11%);
   --color-dark-foreground: hsl(0, 0%, 100%);
-  --color-info: hsl(258, 90%, 56%);
-  --color-info-foreground: hsl(0, 0%, 100%);
-  --color-success: hsl(142.1, 76.2%, 36.3%);
-  --color-success-foreground: hsl(355.7, 100%, 97.3%);
-  --color-warning: hsl(32.1, 98%, 45%);
-  --color-warning-foreground: hsl(26, 83.3%, 14.1%);
-  --color-danger: hsl(0, 74%, 51%);
-  --color-danger-foreground: hsl(355.7, 100%, 97.3%);
-  --color-ring: hsl(258, 90%, 66%);
+  --color-info: #6e3fff;
+  --color-info-foreground: #ffffff;
+  --color-success: #007f66;
+  --color-success-foreground: #ffffff;
+  --color-warning: #ba5200;
+  --color-warning-foreground: #953d00;
+  --color-danger: #d92739;
+  --color-danger-foreground: #ffffff;
+  --color-ring: rgba(110, 63, 255, 0.5);
 
-  /* Surfaces */
+  /* Surfaces — console cards are border-only, no shadow */
   --card-radius: 0.75rem;
-  --card-shadow: 0 1px 2px rgba(16, 18, 27, 0.04);
+  --card-shadow: none;
 }
 
 * {
@@ -129,34 +132,24 @@ select:focus {
   outline-offset: 1px;
 }
 
+/* Console typographic scale: nothing on a page renders larger than 18px;
+   page/dialog titles are 18px bold (see STYLE-GUIDE.md). */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   line-height: 1.2;
 }
 
-h1 {
-  font-size: var(--font-size-5xl);
-}
-
-h2 {
-  font-size: var(--font-size-4xl);
-}
-
-h3 {
-  font-size: var(--font-size-3xl);
+h1, h2, h3 {
+  font-size: var(--font-size-xl); /* 18px — page/dialog titles */
 }
 
 h4 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-lg); /* 16px */
 }
 
-h5 {
-  font-size: var(--font-size-xl);
-}
-
-h6 {
-  font-size: var(--font-size-lg);
+h5, h6 {
+  font-size: var(--font-size-base); /* 14px — card-title size */
 }
 
 code, pre, kbd, samp {
@@ -198,9 +191,9 @@ code, pre, kbd, samp {
 }
 .icon-spin { animation: icon-spin 1s linear infinite; }
 
-/* Content tree rows */
+/* Content tree rows — hover uses the console's ghost-hover fill */
 .tree-row:hover:not(.tree-row-selected) {
-  background: var(--color-muted);
+  background: var(--color-accent);
 }
 
 /* White rounded surface on the gray page background */
@@ -247,14 +240,20 @@ code, pre, kbd, samp {
   cursor: pointer;
   padding: var(--spacing-2);
   border-radius: var(--radius-md);
-  color: hsl(220, 13%, 34%); /* dark gray */
+  color: #484456; /* on-surface-variant, like the console's ghost buttons */
 }
 .icon-button:hover {
-  background: var(--color-muted);
+  background: var(--color-accent);
   color: var(--color-foreground);
 }
 
-/* Main view tabs — Blok "line" variant (blok.sitecore.com Tabs component) */
+/* Main view tabs — Blok Tabs line variant as rendered by the
+   content-transfer-api-console (see STYLE-GUIDE.md): h-9 px-4 gap-1.5
+   font-medium border-b-2, 14px (inherited body size), inactive text
+   on-surface-variant #484456, underline border-muted #e2e8f0, active text +
+   underline primary #6e3fff. The current Blok registry publishes different
+   colors (rgba blacks, active #5319e0); the console palette wins so the
+   Marketplace apps look identical. */
 .view-tabs {
   display: inline-flex;
   align-items: center;
@@ -272,16 +271,16 @@ code, pre, kbd, samp {
   background: none;
   cursor: pointer;
   white-space: nowrap;
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold); /* bold in both states */
-  color: var(--color-muted-foreground); /* text-on-surface-variant */
-  border-bottom: 2px solid var(--color-border); /* border-b-2 border-border-muted */
+  font-size: var(--font-size-md); /* 14px */
+  font-weight: var(--font-weight-medium);
+  color: #484456; /* on-surface-variant */
+  border-bottom: 2px solid var(--color-border);
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .view-tab.active {
   /* only the color changes when selected */
-  color: var(--color-primary); /* data-[state=active]:text-primary */
-  border-bottom-color: var(--color-primary); /* data-[state=active]:border-primary */
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 /* Segmented control (field tabs) */

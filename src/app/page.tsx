@@ -593,6 +593,8 @@ function MainShell({
         display: "flex",
         flexDirection: "column",
         height: "100vh",
+        maxWidth: 1280,
+        margin: "0 auto",
         background: "var(--color-page)",
         padding: "var(--spacing-6)",
         gap: "var(--spacing-5)",
@@ -621,7 +623,7 @@ function MainShell({
         </div>
       )}
 
-      {/* Row 1 — title */}
+      {/* Row 1 — title + settings */}
       <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-3)" }}>
         <LogoMark />
         <div>
@@ -630,7 +632,7 @@ function MainShell({
           </h3>
           <p
             style={{
-              fontSize: "var(--font-size-sm)",
+              fontSize: "var(--font-size-2xs)", /* console page subtitle: 11px */
               color: "var(--color-muted-foreground)",
             }}
           >
@@ -638,9 +640,19 @@ function MainShell({
             them after a content transfer overwrites them.
           </p>
         </div>
+        <button
+          type="button"
+          onClick={() => setShowSettings(true)}
+          title="Settings"
+          aria-label="Settings"
+          className="icon-button"
+          style={{ marginLeft: "auto", flexShrink: 0 }}
+        >
+          <Icon path={mdiCog} size={0.9} />
+        </button>
       </div>
 
-      {/* Row 2 — tabs + settings */}
+      {/* Row 2 — tabs */}
       <div
         style={{
           display: "flex",
@@ -665,16 +677,6 @@ function MainShell({
             Preview and apply changes
           </button>
         </div>
-        <button
-          type="button"
-          onClick={() => setShowSettings(true)}
-          title="Settings"
-          aria-label="Settings"
-          className="icon-button"
-          style={{ flexShrink: 0 }}
-        >
-          <Icon path={mdiCog} size={0.9} />
-        </button>
       </div>
 
       {/* Content */}
@@ -688,7 +690,9 @@ function MainShell({
                 flex: 1,
                 minWidth: 0,
                 overflowY: "auto",
-                padding: "var(--spacing-6) var(--spacing-8)",
+                /* No top padding: the sticky FieldPanel header must sit flush
+                   with the card's top edge and carries the spacing itself. */
+                padding: "0 var(--spacing-8) var(--spacing-6)",
               }}
             >
               <FieldPanel selection={selection} language={language} />
