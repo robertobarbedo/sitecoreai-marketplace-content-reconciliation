@@ -1,0 +1,310 @@
+:root {
+  /* Font Families */
+  --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  /* Font Sizes */
+  --font-size-3xs: 0.625rem;   /* 10px */
+  --font-size-2xs: 0.6875rem;  /* 11px */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.8125rem;   /* 13px */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-md: 0.875rem;    /* 14px */
+  --font-size-lg: 1rem;        /* 16px */
+  --font-size-xl: 1.125rem;    /* 18px */
+  --font-size-2xl: 1.25rem;    /* 20px */
+  --font-size-3xl: 1.5rem;     /* 24px */
+  --font-size-4xl: 1.875rem;   /* 30px */
+  --font-size-5xl: 2.25rem;    /* 36px */
+  --font-size-6xl: 3rem;       /* 48px */
+  --font-size-7xl: 3.75rem;    /* 60px */
+  --font-size-8xl: 4.5rem;     /* 72px */
+  --font-size-9xl: 6rem;       /* 96px */
+  
+  /* Blok Spacing Scale */
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1-5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-2-5: 0.625rem;  /* 10px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-3-5: 0.875rem;  /* 14px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-7: 1.75rem;     /* 28px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-9: 2.25rem;     /* 36px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-13: 3.25rem;    /* 52px */
+  --spacing-16: 4rem;       /* 64px */
+  
+  /* Blok Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-base: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 624.938rem; /* 9999px */
+  
+  /* Semantic Colors (purple design language, see design screenshot) */
+  --color-page: hsl(220, 20%, 97%);
+  --color-background: hsl(0, 0%, 100%);
+  --color-foreground: hsl(222, 18%, 10%);
+  --color-muted: hsl(220, 14%, 95%);
+  --color-muted-foreground: hsl(220, 9%, 46%);
+  --color-border: hsl(220, 13%, 91%);
+  --color-border-a11y: hsl(217.2, 32.6%, 17.5%);
+  --color-primary: hsl(258, 90%, 56%);
+  --color-primary-foreground: hsl(0, 0%, 100%);
+  --color-primary-hover: hsl(258, 84%, 48%);
+  --color-primary-active: hsl(258, 84%, 44%);
+  --color-primary-soft: hsl(258, 90%, 96%);
+  --color-primary-soft-foreground: hsl(258, 80%, 48%);
+  --color-secondary: hsl(0, 0%, 100%);
+  --color-secondary-foreground: hsl(222, 18%, 10%);
+  --color-accent: hsl(220, 14%, 94%);
+  --color-accent-foreground: hsl(222, 18%, 10%);
+  --color-dark: hsl(222, 18%, 11%);
+  --color-dark-foreground: hsl(0, 0%, 100%);
+  --color-info: hsl(258, 90%, 56%);
+  --color-info-foreground: hsl(0, 0%, 100%);
+  --color-success: hsl(142.1, 76.2%, 36.3%);
+  --color-success-foreground: hsl(355.7, 100%, 97.3%);
+  --color-warning: hsl(32.1, 98%, 45%);
+  --color-warning-foreground: hsl(26, 83.3%, 14.1%);
+  --color-danger: hsl(0, 74%, 51%);
+  --color-danger-foreground: hsl(355.7, 100%, 97.3%);
+  --color-ring: hsl(258, 90%, 66%);
+
+  /* Surfaces */
+  --card-radius: 0.75rem;
+  --card-shadow: 0 1px 2px rgba(16, 18, 27, 0.04);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-page);
+  color: var(--color-foreground);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 1px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+/* Utility classes for font sizes */
+.text-3xs { font-size: var(--font-size-3xs); }
+.text-2xs { font-size: var(--font-size-2xs); }
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-md { font-size: var(--font-size-md); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+.text-5xl { font-size: var(--font-size-5xl); }
+.text-6xl { font-size: var(--font-size-6xl); }
+.text-7xl { font-size: var(--font-size-7xl); }
+.text-8xl { font-size: var(--font-size-8xl); }
+.text-9xl { font-size: var(--font-size-9xl); }
+
+/* Utility classes for font weights */
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+
+/* Utility classes for font families */
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Spinner used by the content tree's loading chevron */
+@keyframes icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.icon-spin { animation: icon-spin 1s linear infinite; }
+
+/* Content tree rows */
+.tree-row:hover:not(.tree-row-selected) {
+  background: var(--color-muted);
+}
+
+/* White rounded surface on the gray page background */
+.card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Gray rounded monospace box used for read-only values and paths */
+.value-box {
+  background: var(--color-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* Small uppercase pill button (e.g. UNTRACK ITEM) */
+.pill-button {
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-1) var(--spacing-2-5);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.pill-button:hover { background: var(--color-accent); }
+
+/* Borderless icon-only button (e.g. Settings gear next to the tabs) */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  color: hsl(220, 13%, 34%); /* dark gray */
+}
+.icon-button:hover {
+  background: var(--color-muted);
+  color: var(--color-foreground);
+}
+
+/* Main view tabs — Blok "line" variant (blok.sitecore.com Tabs component) */
+.view-tabs {
+  display: inline-flex;
+  align-items: center;
+  height: 2.25rem; /* h-9 */
+  width: fit-content;
+}
+.view-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1-5); /* gap-1.5 */
+  height: 2.25rem; /* h-9 */
+  padding: 0 var(--spacing-4); /* px-4 */
+  border: none;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold); /* bold in both states */
+  color: var(--color-muted-foreground); /* text-on-surface-variant */
+  border-bottom: 2px solid var(--color-border); /* border-b-2 border-border-muted */
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.view-tab.active {
+  /* only the color changes when selected */
+  color: var(--color-primary); /* data-[state=active]:text-primary */
+  border-bottom-color: var(--color-primary); /* data-[state=active]:border-primary */
+}
+
+/* Segmented control (field tabs) */
+.segmented {
+  display: inline-flex;
+  gap: var(--spacing-1);
+  background: var(--color-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-1);
+}
+.segmented button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-foreground);
+  padding: var(--spacing-1-5) var(--spacing-4);
+  border-radius: var(--radius-md);
+}
+.segmented button.active {
+  background: var(--color-background);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--card-shadow);
+}
