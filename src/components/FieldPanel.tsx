@@ -148,8 +148,7 @@ export function FieldPanel({
     return (
       /* The card provides no top padding (see page.tsx) — add it here. */
       <div style={{ paddingTop: "var(--spacing-6)" }}>
-        <h4 style={{ marginBottom: "var(--spacing-2)" }}>{selection.name}</h4>
-        <PathPill path={selection.path} />
+        <h5 style={{ marginBottom: "var(--spacing-2)" }}>{selection.path}</h5>
         <p
           style={{
             fontSize: "var(--font-size-sm)",
@@ -283,7 +282,7 @@ export function FieldPanel({
             minWidth: 0,
           }}
         >
-          <h4
+          <h5
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -293,7 +292,7 @@ export function FieldPanel({
             title={selection.path}
           >
             {selection.path}
-          </h4>
+          </h5>
           <LanguagePill language={language} />
         </div>
 
