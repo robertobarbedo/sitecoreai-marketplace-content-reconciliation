@@ -301,6 +301,47 @@ export async function getItemWithFields(
   return data.item ?? null;
 }
 
+/**
+ * Current value of one field on an item, fetched for several languages in a
+ * single aliased query against one environment. A language maps to null when
+ * the item is missing there, has no version in that language, or doesn't
+ * have the field — callers should skip those instead of storing a value.
+ */
+export async function getFieldValuePerLanguage(
+  client: ClientSDK,
+  sitecoreContextId: string,
+  itemId: string,
+  fieldName: string,
+  languages: string[],
+): Promise<Record<string, string | null>> {
+  const aliases = languages
+    .map(
+      (lang, i) => `
+        l${i}: item(where: { database: "${SITECORE_DATABASES.MASTER}", itemId: "${escapeGraphQL(itemId)}", language: "${escapeGraphQL(lang)}" }) {
+          versions { version }
+          field(name: "${escapeGraphQL(fieldName)}") { value }
+        }`,
+    )
+    .join("\n");
+  const data = await runAuthoring<
+    Record<
+      string,
+      | { versions?: { version: number }[]; field: { value: string } | null }
+      | null
+    >
+  >(client, sitecoreContextId, `query {\n${aliases}\n}`);
+
+  const result: Record<string, string | null> = {};
+  languages.forEach((lang, i) => {
+    const node = data[`l${i}`];
+    result[lang] =
+      node && (node.versions?.length ?? 0) > 0 && node.field
+        ? node.field.value
+        : null;
+  });
+  return result;
+}
+
 /** Lazy tree loading: the direct children of an item. */
 export async function getChildren(
   client: ClientSDK,

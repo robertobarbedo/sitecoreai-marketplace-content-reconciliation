@@ -4,10 +4,15 @@ import { useState } from "react";
 import { SHARED_VALUE_KEY } from "@/src/constants";
 import type { TrackedField } from "@/src/types/reconciliation";
 import { environmentLabel } from "@/src/utils/environments";
-import { getFieldSharedness, type FieldNode } from "@/src/utils/sitecore-graphql";
+import {
+  getFieldSharedness,
+  getFieldValuePerLanguage,
+  type FieldNode,
+} from "@/src/utils/sitecore-graphql";
 import { useAppState } from "@/src/context/AppStateContext";
 import { ConfirmDialog } from "./ConfirmDialog";
-import { Button } from "./ui";
+import { Icon, mdiDownload } from "./Icon";
+import { Button, Spinner } from "./ui";
 
 /** Shared by the header row in FieldPanel and every FieldRow. */
 export const FIELD_GRID_COLUMNS = "16px 260px 1fr";
@@ -41,6 +46,12 @@ export function FieldRow({
   const [sharednessNotice, setSharednessNotice] = useState<string | null>(null);
   const [confirmUntrack, setConfirmUntrack] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  /** tenantId of the environment whose values are being fetched. */
+  const [capturingEnv, setCapturingEnv] = useState<string | null>(null);
+  /** Per-tenantId skip/failure notice of the last capture. */
+  const [captureNotices, setCaptureNotices] = useState<Record<string, string>>(
+    {},
+  );
 
   const fieldId = fieldNode.fieldId ?? "";
   const isTracked = !!tracked;
@@ -102,6 +113,78 @@ export function FieldRow({
     : [];
 
   const valueKeys = tracked?.shared ? [SHARED_VALUE_KEY] : languages;
+
+  /**
+   * Shortcut: read the field's current value from one environment and store
+   * it as the desired value — per language, or once (first language that has
+   * a version) for shared fields. Missing items/versions are skipped so
+   * apply keeps ignoring them. Nothing is saved until the user hits Save.
+   */
+  const handleCaptureEnv = async (env: (typeof orderedEnvs)[number]) => {
+    if (!tracked) return;
+    setCapturingEnv(env.tenantId);
+    setCaptureNotices((notices) => {
+      const next = { ...notices };
+      delete next[env.tenantId];
+      return next;
+    });
+    const skipped: string[] = [];
+    let failure: string | null = null;
+    try {
+      const byLanguage = await getFieldValuePerLanguage(
+        client,
+        env.contextId,
+        itemId,
+        tracked.name,
+        languages,
+      );
+      if (tracked.shared) {
+        const value = languages
+          .map((lang) => byLanguage[lang])
+          .find((v) => v !== null);
+        if (value === undefined) {
+          skipped.push("no language has a version of this item here");
+        } else {
+          dispatch({
+            type: "SET_VALUE",
+            itemId,
+            fieldId,
+            tenantName: env.tenantName,
+            valueKey: SHARED_VALUE_KEY,
+            value,
+          });
+        }
+      } else {
+        for (const lang of languages) {
+          const value = byLanguage[lang];
+          if (value === null) {
+            skipped.push(lang);
+          } else {
+            dispatch({
+              type: "SET_VALUE",
+              itemId,
+              fieldId,
+              tenantName: env.tenantName,
+              valueKey: lang,
+              value,
+            });
+          }
+        }
+      }
+    } catch (error) {
+      failure = error instanceof Error ? error.message : String(error);
+    } finally {
+      setCapturingEnv(null);
+    }
+    const notice = failure
+      ? `Failed: ${failure}`
+      : skipped.length > 0
+        ? `Skipped (no version): ${skipped.join(", ")}`
+        : null;
+    if (notice) {
+      setCaptureNotices((notices) => ({ ...notices, [env.tenantId]: notice }));
+    }
+  };
 
   const baseValue = fieldNode.value ?? "";
   const showToggle = baseValue.length > 200;
@@ -243,14 +326,58 @@ export function FieldRow({
               >
                 <div
                   style={{
-                    fontSize: "var(--font-size-xs)",
-                    fontWeight: 600,
-                    fontFamily: "var(--font-mono)",
-                    color: "var(--color-muted-foreground)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "var(--spacing-2)",
+                    flexWrap: "wrap",
                     marginBottom: "var(--spacing-1-5)",
                   }}
                 >
-                  {environmentLabel(env)}
+                  <span
+                    style={{
+                      fontSize: "var(--font-size-xs)",
+                      fontWeight: 600,
+                      fontFamily: "var(--font-mono)",
+                      color: "var(--color-muted-foreground)",
+                    }}
+                  >
+                    {environmentLabel(env)}
+                  </span>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "var(--spacing-2)",
+                    }}
+                  >
+                    {capturingEnv === env.tenantId && (
+                      <Spinner label="Reading…" />
+                    )}
+                    {capturingEnv !== env.tenantId &&
+                      captureNotices[env.tenantId] && (
+                        <span
+                          style={{
+                            fontSize: "var(--font-size-2xs)",
+                            color: "var(--color-warning)",
+                          }}
+                        >
+                          {captureNotices[env.tenantId]}
+                        </span>
+                      )}
+                    <Button
+                      disabled={capturingEnv !== null}
+                      title={`Fetch this field's current value from ${environmentLabel(env)} (each language) and set it as the desired value — nothing is saved until you hit Save`}
+                      style={{
+                        padding: "var(--spacing-1) var(--spacing-2)",
+                        fontSize: "var(--font-size-2xs)",
+                      }}
+                      onClick={() => handleCaptureEnv(env)}
+                    >
+                      <Icon path={mdiDownload} size={0.55} />
+                      Set current values
+                    </Button>
+                  </div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-1-5)" }}>
                   {valueKeys.map((key) => {
