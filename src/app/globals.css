@@ -1,0 +1,309 @@
+:root {
+  /* Font Families (see C:\Marketplace\STYLE-GUIDE.md — Inter + JetBrains
+     Mono, loaded via Google Fonts in layout.tsx) */
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Font Sizes */
+  --font-size-3xs: 0.625rem;   /* 10px */
+  --font-size-2xs: 0.6875rem;  /* 11px */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px — console standard text (text-sm) */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-md: 0.875rem;    /* 14px */
+  --font-size-lg: 1rem;        /* 16px */
+  --font-size-xl: 1.125rem;    /* 18px */
+  --font-size-2xl: 1.25rem;    /* 20px */
+  --font-size-3xl: 1.5rem;     /* 24px */
+  --font-size-4xl: 1.875rem;   /* 30px */
+  --font-size-5xl: 2.25rem;    /* 36px */
+  --font-size-6xl: 3rem;       /* 48px */
+  --font-size-7xl: 3.75rem;    /* 60px */
+  --font-size-8xl: 4.5rem;     /* 72px */
+  --font-size-9xl: 6rem;       /* 96px */
+  
+  /* Blok Spacing Scale */
+  --spacing-0: 0px;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1-5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-2-5: 0.625rem;  /* 10px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-3-5: 0.875rem;  /* 14px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-7: 1.75rem;     /* 28px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-9: 2.25rem;     /* 36px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-13: 3.25rem;    /* 52px */
+  --spacing-16: 4rem;       /* 64px */
+  
+  /* Blok Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-base: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 624.938rem; /* 9999px */
+  
+  /* Semantic Colors — Blok light theme as used by the
+     content-transfer-api-console (see C:\Marketplace\STYLE-GUIDE.md) */
+  --color-page: #f9f9fb;                      /* surface */
+  --color-background: #ffffff;
+  --color-foreground: #1a1c1d;                /* on-surface */
+  --color-muted: #f7f7f7;                     /* muted / subtle fills */
+  --color-muted-foreground: #64748b;          /* text-subtle */
+  --color-border: #e2e8f0;                    /* border-muted */
+  --color-border-a11y: rgba(0, 0, 0, 0.42);
+  --color-primary: #6e3fff;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #5319e0;
+  --color-primary-active: #4715af;
+  --color-primary-soft: #eae7ff;              /* primary-background */
+  --color-primary-soft-foreground: #5319e0;   /* primary-foreground */
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: #1a1c1d;
+  --color-accent: #edeef0;                    /* surface-container (hover) */
+  --color-accent-foreground: #1a1c1d;
+  --color-dark: hsl(222, 18%, 11%);
+  --color-dark-foreground: hsl(0, 0%, 100%);
+  --color-info: #6e3fff;
+  --color-info-foreground: #ffffff;
+  --color-success: #007f66;
+  --color-success-foreground: #ffffff;
+  --color-warning: #ba5200;
+  --color-warning-foreground: #953d00;
+  --color-danger: #d92739;
+  --color-danger-foreground: #ffffff;
+  --color-ring: rgba(110, 63, 255, 0.5);
+
+  /* Surfaces — console cards are border-only, no shadow */
+  --card-radius: 0.75rem;
+  --card-shadow: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-page);
+  color: var(--color-foreground);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 1px;
+}
+
+/* Console typographic scale: nothing on a page renders larger than 18px;
+   page/dialog titles are 18px bold (see STYLE-GUIDE.md). */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+h1, h2, h3 {
+  font-size: var(--font-size-xl); /* 18px — page/dialog titles */
+}
+
+h4 {
+  font-size: var(--font-size-lg); /* 16px */
+}
+
+h5, h6 {
+  font-size: var(--font-size-base); /* 14px — card-title size */
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+/* Utility classes for font sizes */
+.text-3xs { font-size: var(--font-size-3xs); }
+.text-2xs { font-size: var(--font-size-2xs); }
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-md { font-size: var(--font-size-md); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+.text-5xl { font-size: var(--font-size-5xl); }
+.text-6xl { font-size: var(--font-size-6xl); }
+.text-7xl { font-size: var(--font-size-7xl); }
+.text-8xl { font-size: var(--font-size-8xl); }
+.text-9xl { font-size: var(--font-size-9xl); }
+
+/* Utility classes for font weights */
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+
+/* Utility classes for font families */
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Spinner used by the content tree's loading chevron */
+@keyframes icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.icon-spin { animation: icon-spin 1s linear infinite; }
+
+/* Content tree rows — hover uses the console's ghost-hover fill */
+.tree-row:hover:not(.tree-row-selected) {
+  background: var(--color-accent);
+}
+
+/* White rounded surface on the gray page background */
+.card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Gray rounded monospace box used for read-only values and paths */
+.value-box {
+  background: var(--color-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+/* Small uppercase pill button (e.g. UNTRACK ITEM) */
+.pill-button {
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-1) var(--spacing-2-5);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.pill-button:hover { background: var(--color-accent); }
+
+/* Borderless icon-only button (e.g. Settings gear next to the tabs) */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  color: #484456; /* on-surface-variant, like the console's ghost buttons */
+}
+.icon-button:hover {
+  background: var(--color-accent);
+  color: var(--color-foreground);
+}
+
+/* Main view tabs — Blok Tabs line variant as rendered by the
+   content-transfer-api-console (see STYLE-GUIDE.md): h-9 px-4 gap-1.5
+   font-medium border-b-2, 14px (inherited body size), inactive text
+   on-surface-variant #484456, underline border-muted #e2e8f0, active text +
+   underline primary #6e3fff. The current Blok registry publishes different
+   colors (rgba blacks, active #5319e0); the console palette wins so the
+   Marketplace apps look identical. */
+.view-tabs {
+  display: inline-flex;
+  align-items: center;
+  height: 2.25rem; /* h-9 */
+  width: fit-content;
+}
+.view-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1-5); /* gap-1.5 */
+  height: 2.25rem; /* h-9 */
+  padding: 0 var(--spacing-4); /* px-4 */
+  border: none;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: var(--font-size-md); /* 14px */
+  font-weight: var(--font-weight-medium);
+  color: #484456; /* on-surface-variant */
+  border-bottom: 2px solid var(--color-border);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.view-tab.active {
+  /* only the color changes when selected */
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Segmented control (field tabs) */
+.segmented {
+  display: inline-flex;
+  gap: var(--spacing-1);
+  background: var(--color-muted);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-1);
+}
+.segmented button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-muted-foreground);
+  padding: var(--spacing-1-5) var(--spacing-4);
+  border-radius: var(--radius-md);
+}
+.segmented button.active {
+  background: var(--color-background);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--card-shadow);
+}
