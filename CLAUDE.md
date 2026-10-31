@@ -72,3 +72,14 @@ items.
 - UI: no component library — plain React with inline styles + CSS variables
   from `src/app/globals.css` (copied from the publish inspector) and shared
   primitives in `src/components/ui.tsx`.
+- Fonts: Inter + JetBrains Mono are self-hosted via `next/font/google` in
+  `src/app/layout.tsx` (CSS variables `--font-inter` /
+  `--font-jetbrains-mono`, consumed by `--font-*` in `globals.css`). Do not
+  add a Google Fonts `<link>` back.
+- SDK: `@sitecore-marketplace-sdk/client` ^0.4.1 and `xmc` ^0.4.4.
+- No analytics (Google Analytics was removed) and no `.env.example`: the
+  only env var is the optional `CSP_FRAME_ANCESTORS` read by
+  `next.config.ts` (security headers).
+- Desired values are plain text in the `Data` item: keep the "no secrets"
+  hint in FieldPanel and the warnings in README / PRIVACY.md /
+  DATA-USAGE.md in sync if the storage model changes.

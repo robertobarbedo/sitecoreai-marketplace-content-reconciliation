@@ -1,9 +1,9 @@
 :root {
-  /* Font Families (see C:\Marketplace\STYLE-GUIDE.md — Inter + JetBrains
-     Mono, loaded via Google Fonts in layout.tsx) */
-  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Font Families (Inter + JetBrains Mono, self-hosted via next/font in
+     layout.tsx, which sets --font-inter / --font-jetbrains-mono) */
+  --font-heading: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
 
   /* Font Weights */
   --font-weight-normal: 400;

@@ -70,7 +70,9 @@ Browser (app iframe) -> Marketplace SDK -> SitecoreAI host
 
 The `Data` item holds tracked items (by item ID, so they match across
 environments), tracked fields (by field ID), and desired values keyed by
-environment name and language (`*` for shared fields).
+environment name and language (`*` for shared fields). Desired values are
+stored as plain text: never use them for secrets such as API keys, passwords
+or tokens.
 
 **Startup.** The app queries every environment for the `Base` and `Secondary`
 markers:
@@ -143,10 +145,10 @@ deployment URL of your App Studio app to the public HTTPS URL.
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | No | Google Analytics 4 measurement ID (`G-XXXXXXXXXX`). Leave empty to disable analytics. Public, inlined at build time. |
+| `CSP_FRAME_ANCESTORS` | No | Space-separated CSP sources allowed to embed the app in a frame. Default: `'self' https://*.sitecorecloud.io`. |
 
-There are no server-side secrets. Copy `.env.example` to `.env.local` if you
-want to set the variable locally.
+There are no server-side secrets and no other environment variables. To set
+the variable locally, add it to `.env.local`.
 
 The app only runs inside SitecoreAI. The Marketplace SDK needs the host
 iframe; opening the deployment URL directly in a browser shows a connection
@@ -177,21 +179,40 @@ All other state (tracked items, fields and desired values) is stored in the
   signed-in SitecoreAI user's own session and permissions. The app has no
   login of its own, no backend and no stored credentials.
 - **Secrets:** none.
-- **Stored data:** desired values are stored as plain text in the `Data` item
-  in the base environment's master database. Anyone who can read
-  `/sitecore/system/Modules` in that environment can read them, and the item is
-  included in backups and content transfers like any other item. Do not store
-  secrets such as API keys or passwords as desired values.
+- **Stored data:** desired values are stored as plain text, unencrypted, in
+  the `Data` item in the base environment's master database. Anyone who can
+  read `/sitecore/system/Modules` in that environment can read them, and the
+  item is included in backups, serialization, packages and content transfers
+  like any other item. **Never store secrets such as API keys, passwords,
+  tokens or connection strings as desired values**; keep those in your
+  hosting platform's secret store or environment variables instead. The field
+  panel shows the same reminder above the field list.
 - **Writes:** the tracking view never edits content. Only Apply writes to
   content items, and only after a confirmation dialog. Setup, Save, conflict
   resolution and Reset write only under the module folder.
+- **Data across environments:** the app reads field values from several
+  environments and copies them between them, always in your browser through
+  the Marketplace SDK. Content tree, field values and languages are read from
+  the base environment; "Set current values" reads a field's current value
+  from another environment and saves it in the base environment's `Data`
+  item; Apply reads the target environment's current values for the preview
+  and writes the desired values stored in the base environment to it. The
+  `Base`/`Secondary` markers are written to every environment.
 - **Data leaving the browser:** content and desired values go only to your
-  SitecoreAI environments through the host. The page loads the Inter and
-  JetBrains Mono fonts from Google Fonts. If `NEXT_PUBLIC_GA_MEASUREMENT_ID` is
-  set, Google Analytics receives page views and an SDK-initialized event; no
-  content data is sent.
+  SitecoreAI environments through the host. The app has no backend, no
+  analytics and no third-party services. Fonts are self-hosted with the app
+  (bundled at build time), so no request goes to Google Fonts.
+- **Security headers:** every response sends HSTS, a `frame-ancestors`
+  Content Security Policy (SitecoreAI hosts only, see `CSP_FRAME_ANCESTORS`),
+  `X-Content-Type-Options: nosniff`, a strict `Referrer-Policy` and a
+  `Permissions-Policy` that disables camera, microphone, geolocation, payment
+  and USB.
 - **Host restrictions:** the app makes no outbound requests to user-supplied
   URLs.
+- **Policies:** [Privacy policy](PRIVACY.md),
+  [Terms of service](TERMS.md),
+  [Data usage disclosure](DATA-USAGE.md) and
+  [Security policy](SECURITY.md).
 
 ## Limitations
 
@@ -213,8 +234,9 @@ All other state (tracked items, fields and desired values) is stored in the
 ## Development
 
 - Next.js 15 (App Router), React 19, TypeScript.
-- Sitecore Marketplace SDK (`@sitecore-marketplace-sdk/client` and
-  `@sitecore-marketplace-sdk/xmc`).
+- Sitecore Marketplace SDK (`@sitecore-marketplace-sdk/client` 0.4 and
+  `@sitecore-marketplace-sdk/xmc` 0.4).
+- Inter and JetBrains Mono, self-hosted through `next/font/google`.
 - No component library: plain React with inline styles and CSS variables
   defined in `src/app/globals.css`, with shared primitives in
   `src/components/ui.tsx`.
@@ -232,7 +254,13 @@ public/         App icon
 
 ## Support
 
-Report bugs and request features by opening an issue in this repository.
+Report bugs and request features by opening an issue at
+https://github.com/robertobarbedo/sitecoreai-marketplace-content-reconciliation/issues.
+To report a vulnerability, follow the [Security policy](SECURITY.md). For
+privacy and data requests, see the [Privacy policy](PRIVACY.md) and the
+[Data usage disclosure](DATA-USAGE.md); use of the app is subject to the
+[Terms of service](TERMS.md).
+
 This is a community app and is not an official Sitecore product.
 
 ## License

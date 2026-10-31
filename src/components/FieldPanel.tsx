@@ -377,6 +377,19 @@ export function FieldPanel({
       )}
 
       {!loading && (visibleFields.length > 0 || missingTracked.length > 0) && (
+        <p
+          style={{
+            fontSize: "var(--font-size-xs)",
+            color: "var(--color-muted-foreground)",
+            margin: "0 0 var(--spacing-2)",
+          }}
+        >
+          Desired values are saved as plain text in the base environment. Do
+          not enter secrets such as API keys or passwords.
+        </p>
+      )}
+
+      {!loading && (visibleFields.length > 0 || missingTracked.length > 0) && (
         <div
           style={{
             display: "grid",
