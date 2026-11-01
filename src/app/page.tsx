@@ -383,7 +383,7 @@ function LogoMark() {
   // eslint-disable-next-line @next/next/no-img-element
   return (
     <img
-      src="/icon.svg"
+      src="/bandaids-duotone.svg"
       alt="Content Reconciliation"
       width={40}
       height={40}

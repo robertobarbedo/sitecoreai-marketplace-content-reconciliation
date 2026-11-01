@@ -82,7 +82,7 @@ Off. The app does not use AI or machine learning.
 - Deployment URL: `{{APP_URL}}`
 - Client credentials (custom authorization): **No**. The app has no `/api` routes and uses only the Marketplace SDK's built-in authorization.
 - Environment variables on the host: none required. Optional: `CSP_FRAME_ANCESTORS`.
-- App logo: `public/icon.svg`
+- App logo: `public/bandaids-duotone.svg`
 - Grant the app access to every environment you want to reconcile.
 
 ## 11. Submission details (visible only to Sitecore)

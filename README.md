@@ -126,7 +126,7 @@ values are written through the `en` language version.
 4. Under API access, enable **SitecoreAI APIs**.
 5. No additional permissions are needed.
 6. Set the deployment URL to `https://<your-deployment>/`.
-7. Upload the app logo from [`public/icon.svg`](public/icon.svg).
+7. Upload the app logo from [`public/bandaids-duotone.svg`](public/bandaids-duotone.svg).
 8. Save, then install the app in your organization and grant it access to the
    environments you want to reconcile.
 9. Open the app from the SitecoreAI apps menu. On first run, choose the base
