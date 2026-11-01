@@ -816,8 +816,8 @@ function MainShell({
 
             <div
               style={{
-                textAlign: "center",
-                fontSize: "var(--font-size-xs)",
+                textAlign: "left",
+                fontSize: "10px",
                 color: "var(--color-muted-foreground)",
                 paddingTop: "var(--spacing-3)",
                 borderTop: "1px solid var(--color-border)",
