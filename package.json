@@ -10,7 +10,7 @@
   "dependencies": {
     "@sitecore-marketplace-sdk/client": "^0.4.1",
     "@sitecore-marketplace-sdk/xmc": "^0.4.4",
-    "next": "^15.5.28",
+    "next": "^16.4.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
