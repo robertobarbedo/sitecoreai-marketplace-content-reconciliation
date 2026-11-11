@@ -818,12 +818,12 @@ function MainShell({
               style={{
                 textAlign: "left",
                 fontSize: "10px",
-                color: "var(--color-muted-foreground)",
+                color: "#94A3B8",
                 paddingTop: "var(--spacing-3)",
                 borderTop: "1px solid var(--color-border)",
               }}
             >
-              Developed by Roberto Barbedo
+              Developed by Roberto Barbedo · v{process.env.NEXT_PUBLIC_APP_VERSION}
             </div>
           </div>
         </Modal>
